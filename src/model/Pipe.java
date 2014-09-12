@@ -18,9 +18,9 @@ public class Pipe {
 		
 	}
 	
-	public void initRand( int x_start ) {
+	public void initRand( int x ) {
 		
-		x = x_start;
+		this.x = x;
 		y = (int)(Math.random() * (y_max - y_min) + y_min);
 		
 	}

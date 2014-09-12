@@ -3,15 +3,23 @@ package model;
 public class Bird {
 	
 	private int x, y;
+	private int width, height;
 	
 	public Bird() {
 		
 	}
 	
-	public void init( int x_start, int y_start ) {
+	public void setWH( int width, int height ) {
 		
-		x = x_start;
-		y = y_start;
+		this.width = width;
+		this.height = height;
+		
+	}
+	
+	public void init( int x, int y ) {
+		
+		this.x = x;
+		this.y = y;
 		
 	}
 
