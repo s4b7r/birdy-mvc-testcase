@@ -24,8 +24,8 @@ public class Controller implements Runnable {
 	private final int PIPE_GAP_HEIGHT = 125;
 	private final int PIPE_DISTANCE = 300;
 	
-	private final int PIPE_STEP = 1;
-	private final int BIRD_STEP = 2;
+	private final int PIPE_STEP = 2;
+	private final int BIRD_STEP = 3;
 	
 	private final int PIPE_WIDTH = 52;
 	private final int PIPE_HEIGHT = 320;
@@ -33,7 +33,7 @@ public class Controller implements Runnable {
 	private final int BIRD_WIDTH = 34;
 	private final int BIRD_HEIGHT = 24;
 	
-	private final int BIRD_JUMP_HEIGHT_MAX = 100;
+	private final int BIRD_JUMP_HEIGHT_MAX = 75;
 	
 	private final int TIME_STEP = 10;
 	
