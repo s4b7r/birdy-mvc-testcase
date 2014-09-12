@@ -17,8 +17,8 @@ public class Pipe {
 
 	public static void setYProps( int y_min, int y_max, int gap_height ) {
 		
-		Pipe.y_min = y_min;
-		Pipe.y_max = y_max;
+		Pipe.y_min = y_min - height;
+		Pipe.y_max = y_max - height - gap_height;
 		Pipe.gap_height = gap_height;
 		
 	}

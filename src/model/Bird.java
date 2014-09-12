@@ -34,7 +34,7 @@ public class Bird {
 
 	public void move() {
 		
-		y += bird_step;
+		y -= bird_step;
 		jump_height_last += bird_step;
 		
 	}

@@ -47,8 +47,8 @@ public class World {
 			int pipe_step ) {
 		
 		this.ground_y = ground_y;
-		Pipe.setYProps(ground_y, height, pipe_gap_height);
 		Pipe.setWH(pipe_width, pipe_height);
+		Pipe.setYProps(0, ground_y, pipe_gap_height);
 		Pipe.setProps(pipe_step);
 		
 	}

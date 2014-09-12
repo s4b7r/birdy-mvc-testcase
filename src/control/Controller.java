@@ -11,21 +11,21 @@ import model.*;
 
 public class Controller implements Runnable {
 	
-	private final int WORLD_HEIGHT = 512;
-	private final int WORLD_WIDTH = 288;
+	private final int WORLD_HEIGHT = 600;
+	private final int WORLD_WIDTH = 400;
 	
-	private final int GROUND_Y = 300;
+	private final int GROUND_Y = 500;
 	
 	private final int BIRD_START_X = 5;
 	private final int BIRD_START_Y = 100;
 	
 	private final int PIPE_COUNT = 2;
 	
-	private final int PIPE_GAP_HEIGHT = 100;
-	private final int PIPE_DISTANCE = 100;
+	private final int PIPE_GAP_HEIGHT = 125;
+	private final int PIPE_DISTANCE = 300;
 	
 	private final int PIPE_STEP = 1;
-	private final int BIRD_STEP = 1;
+	private final int BIRD_STEP = 2;
 	
 	private final int PIPE_WIDTH = 52;
 	private final int PIPE_HEIGHT = 320;
@@ -33,10 +33,7 @@ public class Controller implements Runnable {
 	private final int BIRD_WIDTH = 34;
 	private final int BIRD_HEIGHT = 24;
 	
-	private final int BIRD_JUMP_HEIGHT_MAX = 50;
-	
-	private final int VIEW_WIDTH = 288;
-	private final int VIEW_HEIGHT = 512;
+	private final int BIRD_JUMP_HEIGHT_MAX = 100;
 	
 	private final int TIME_STEP = 10;
 	
@@ -67,11 +64,13 @@ public class Controller implements Runnable {
 		world.getBird().setWH(BIRD_WIDTH, BIRD_HEIGHT);
 		world.getBird().setJump_height_max(BIRD_JUMP_HEIGHT_MAX);
 		world.getBird().init(BIRD_START_X, BIRD_START_Y);
+		world.getBird().setBird_step(BIRD_STEP * -1);
 		
-		world.newPipe(0, world.getWidth());
-		world.newPipe(1, world.getWidth() + PIPE_DISTANCE);
+		for( int i = 0; i < world.getPipe_count(); i++ ) {
+			world.newPipe(i, world.getWidth() + PIPE_DISTANCE * i);
+		}
 		
-		view = new View(VIEW_WIDTH, VIEW_HEIGHT, this);
+		view = new View(WORLD_WIDTH, WORLD_HEIGHT, this);
 		view.setVisible(true);
 		view.init();
 		
@@ -89,15 +88,22 @@ public class Controller implements Runnable {
 				world.getBird().resetJumpHeight();
 			}
 			if( jump_pressed ) {
-				// TODO Distance between jumps
+				jump_pressed = false;
 				world.getBird().setBird_step(BIRD_STEP);
 				world.getBird().resetJumpHeight();
 			}
 			
 			world.movePipes();
+			
+			for( int i = 0; i < world.getPipe_count(); i++ ) {
+				if( world.getPipe(i).getX() < Pipe.getWidth() * -1 ) {
+					world.newPipe(i);
+				}
+			}
+			
 			world.getBird().move();
 			
-			view.repaint();
+			view.drawEverything();
 			
 			try {
 				Thread.sleep(TIME_STEP);
@@ -116,8 +122,7 @@ public class Controller implements Runnable {
 	public void keyPressed(KeyEvent e) {
 		
 		if( e.getKeyCode() == 32 ) {
-			world.getBird().setBird_step(BIRD_STEP);
-			world.getBird().resetJumpHeight();
+			jump_pressed = true;
 		}
 		
 	}

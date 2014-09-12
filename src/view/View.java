@@ -61,9 +61,7 @@ public class View extends Frame implements KeyListener{
 		buffer = getBufferStrategy();
 	}
 	
-	@Override
-	public void repaint() {
-		super.repaint();
+	public void drawEverything() {
 		
 		Graphics gfx = buffer.getDrawGraphics();
 		
