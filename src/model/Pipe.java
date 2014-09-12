@@ -89,5 +89,9 @@ public class Pipe {
 	public static void setImageBot(Image imageBot) {
 		Pipe.imageBot = imageBot;
 	}
+
+	public static int getGap_height() {
+		return gap_height;
+	}
 	
 }
