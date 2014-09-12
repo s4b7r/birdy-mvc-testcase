@@ -14,7 +14,7 @@ public class Controller implements Runnable {
 	private final int WORLD_HEIGHT = 512;
 	private final int WORLD_WIDTH = 288;
 	
-	private final int GROUND_Y = 500;
+	private final int GROUND_Y = 300;
 	
 	private final int BIRD_START_X = 5;
 	private final int BIRD_START_Y = 100;
@@ -38,7 +38,7 @@ public class Controller implements Runnable {
 	private final int VIEW_WIDTH = 288;
 	private final int VIEW_HEIGHT = 512;
 	
-	private final int TIME_STEP = 1000;
+	private final int TIME_STEP = 10;
 	
 	private World world;
 	private View view;
@@ -73,6 +73,7 @@ public class Controller implements Runnable {
 		
 		view = new View(VIEW_WIDTH, VIEW_HEIGHT, this);
 		view.setVisible(true);
+		view.init();
 		
 		new Thread(this).start();
 		
@@ -114,7 +115,10 @@ public class Controller implements Runnable {
 	
 	public void keyPressed(KeyEvent e) {
 		
-		
+		if( e.getKeyCode() == 32 ) {
+			world.getBird().setBird_step(BIRD_STEP);
+			world.getBird().resetJumpHeight();
+		}
 		
 	}
 
