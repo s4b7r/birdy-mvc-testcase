@@ -29,6 +29,9 @@ public class World {
 		
 		bird = new Bird();
 		pipe = new Pipe[pipe_count];
+		for( int i = 0; i < pipe_count; i++ ) {
+			pipe[i] = new Pipe();
+		}
 		
 	}
 	
@@ -55,7 +58,8 @@ public class World {
 	}
 	
 	public void newPipe( int index, int x_start ) {
-		pipe[index].initRand(x_start);
+		Pipe p = pipe[index];
+		p.initRand(x_start);
 	}
 	
 	public void newPipe( int index ) {
