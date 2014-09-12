@@ -119,11 +119,11 @@ public class Controller implements Runnable {
 
 	public void initImages() {
 		try {
-			world.setImageBackground(ImageIO.read(new File("FlappyBird_Hintergrund.png")));
-			world.setImageGround(ImageIO.read(new File("FlappyBird_Boden.png")));
-			world.getBird().setImage(ImageIO.read(new File("FlappyBird_Flappy.png")));
-			Pipe.setImageBot(ImageIO.read(new File("FlappyBird_Rohr2_unten.png")));
-			Pipe.setImageTop(ImageIO.read(new File("FlappyBird_Rohr1_oben.png")));
+			world.setImageBackground(ImageIO.read(new File("res/FlappyBird_Hintergrund.png")));
+			world.setImageGround(ImageIO.read(new File("res/FlappyBird_Boden.png")));
+			world.getBird().setImage(ImageIO.read(new File("res/FlappyBird_Flappy.png")));
+			Pipe.setImageBot(ImageIO.read(new File("res/FlappyBird_Rohr2_unten.png")));
+			Pipe.setImageTop(ImageIO.read(new File("res/FlappyBird_Rohr1_oben.png")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
