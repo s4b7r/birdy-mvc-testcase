@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.Image;
+
 public class World {
 
 	private int pipe_count;
@@ -9,6 +11,9 @@ public class World {
 	
 	private int width, height;
 	private int ground_y;
+	
+	private Image imageBackground;
+	private Image imageGround;
 
 	public World( ) {
 
@@ -35,11 +40,13 @@ public class World {
 	}
 	
 	public void setProps( int ground_y, int pipe_gap_height,
-			int pipe_width, int pipe_height ) {
+			int pipe_width, int pipe_height,
+			int pipe_step ) {
 		
 		this.ground_y = ground_y;
 		Pipe.setYProps(ground_y, height, pipe_gap_height);
-		
+		Pipe.setWH(pipe_width, pipe_height);
+		Pipe.setProps(pipe_step);
 		
 	}
 
@@ -47,8 +54,52 @@ public class World {
 		return bird;
 	}
 	
+	public void newPipe( int index, int x_start ) {
+		pipe[index].initRand(x_start);
+	}
+	
+	public void newPipe( int index ) {
+		newPipe(index, width);
+	}
+
+	public int getWidth() {
+		return width;
+	}
+	
+	public void movePipes() {
+		
+		for( int i = 0; i < pipe_count; i++ ) {
+			pipe[i].move();
+		}
+		
+	}
+	
+	public Image getImageBackground() {
+		return imageBackground;
+	}
+	
+	public Image getImageGround() {
+		return imageGround;
+	}
+
+	public int getGround_y() {
+		return ground_y;
+	}
+
+	public int getPipe_count() {
+		return pipe_count;
+	}
+
 	public Pipe getPipe( int index ) {
 		return pipe[index];
+	}
+
+	public void setImageBackground(Image imageBackground) {
+		this.imageBackground = imageBackground;
+	}
+
+	public void setImageGround(Image imageGround) {
+		this.imageGround = imageGround;
 	}
 
 }
