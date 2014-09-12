@@ -109,7 +109,7 @@ public class View extends Frame implements KeyListener{
 
 		gfx.drawImage(controller.getWorld().getImageGround(),
 		0, controller.getWorld().getGround_y(),
-		getWidth(), getHeight(),
+		getWidth(), getHeight() - controller.getWorld().getGround_y(),
 		null);
 //		gfx.setColor(new Color(255, 255, 0));
 //		gfx.fillRect(0, controller.getWorld().getGround_y(), getWidth(), getHeight()-controller.getWorld().getGround_y());
