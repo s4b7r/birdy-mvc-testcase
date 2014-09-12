@@ -4,14 +4,18 @@ import java.awt.Image;
 
 public class Pipe {
 	
+	// Min- und Max-Werte für die freien Stellen
 	private static int y_min, y_max, gap_height;
 	
 	private static int pipe_step;
 	
 	private static int width, height;
 	
+	// y ist die obere, linke Koordinate des oberen Rohrs
 	private int x, y;
 	
+	// Indikator, ob das Rohr bereits zum Score addiert wurde
+	// Beugt Mehrfachzählung vor
 	private boolean scored;
 	
 	private static Image imageTop;

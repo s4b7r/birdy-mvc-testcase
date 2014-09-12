@@ -60,6 +60,9 @@ public class View extends Frame implements KeyListener{
 	}
 
 	public void init() {
+		// Grafikpuffer gegen Bildflimmern
+		// Es wird im Hintergrund gezeichnet und
+		// erst später das Bild angezeigt
 		createBufferStrategy(2);
 		buffer = getBufferStrategy();
 	}
@@ -67,6 +70,7 @@ public class View extends Frame implements KeyListener{
 	public void drawWorld( World world ) {
 
 		Graphics gfx = buffer.getDrawGraphics();
+//		Graphics gfx = getGraphics();
 
 		gfx.clearRect(0, 0, getWidth(), getHeight());
 

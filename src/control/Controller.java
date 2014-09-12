@@ -12,9 +12,12 @@ import model.*;
 
 public class Controller implements Runnable {
 
+	// Weltbreite und -höhe
+	// gleichzeitig Fensterbreite und -höhe
 	private final int WORLD_HEIGHT = 600;
 	private final int WORLD_WIDTH = 400;
 
+	// Höhe des Bodens
 	private final int GROUND_Y = 500;
 
 	private final int BIRD_START_X = 20;
@@ -25,7 +28,10 @@ public class Controller implements Runnable {
 	private final int PIPE_GAP_HEIGHT = 125;
 	private final int PIPE_DISTANCE = WORLD_WIDTH / PIPE_COUNT;
 
+	// Schrittweite pro Zeitschritt für...
+	// ... horizontale Bewegung der Röhren
 	private final int PIPE_STEP = 2;
+	// ... vertikale Bewegung des Vogels
 	private final int BIRD_STEP = 3;
 
 	private final int PIPE_WIDTH = 52;
@@ -34,16 +40,25 @@ public class Controller implements Runnable {
 	private final int BIRD_WIDTH = 34;
 	private final int BIRD_HEIGHT = 24;
 
+	// Höhendifferenz nachdem der Sprung beendet ist
+	// und der Fall einsetzt
 	private final int BIRD_JUMP_HEIGHT_MAX = 60;
 
+	// Länge eines Zeitschritts
+	// Zeitangabe für Thread.sleep(xx)
 	private final int TIME_STEP = 10;
 
+	
 	private World world;
 	private View view;
 
+	// Indikator der Leertaste für Sprünge
 	private boolean jump_pressed = false;
+
+	// Bedingung für Durchlaufen des Loops 
 	private boolean stop = false;
 
+	// Indikatoren für Kollisionen mit Rohr oder Boden
 	private boolean collisionPipe = false;
 	private boolean collisionGround = false;
 
@@ -70,7 +85,10 @@ public class Controller implements Runnable {
 			if( !collisionGround ) {
 				world.getBird().move();
 			} else {
+				// Ist der Boden berührt,
+				// muss nichts mehr animiert werden ...
 				stop = true;
+				// ...und das Spiel kann neu gestartet werden
 				world.setRestartable(true);
 			}
 			
@@ -97,16 +115,21 @@ public class Controller implements Runnable {
 
 	public void keyPressed(KeyEvent e) {
 
+		// KeyCode 32: Leertaste
+		// KeyCode 66: B
+		
 		if( e.getKeyCode() == 32 ) {
 			jump_pressed = true;
 		}
-		if( stop && e.getKeyCode() == 66 ) {
+		if( world.isRestartable() && e.getKeyCode() == 66 ) {
+			// Bei Neustart, Controller neu initialisieren
+			// Initialisiert ebenso das Modell
 			init();
 		}
 
 	}
 	
-	public void init() {
+	private void init() {
 		
 		jump_pressed = false;
 		stop = false;
@@ -151,10 +174,13 @@ public class Controller implements Runnable {
 		world.getBird().setWH(BIRD_WIDTH, BIRD_HEIGHT);
 		world.getBird().setJump_height_max(BIRD_JUMP_HEIGHT_MAX);
 		world.getBird().init(BIRD_START_X, BIRD_START_Y);
+		// Mit Fall-Bewegung beginnen
 		world.getBird().setBird_step(BIRD_STEP * -1);
 	}
 
 	public void initPipes() {
+		// Rohre entsprechend der angegebenen Distanz
+		// außerhalb des anfangs dargestellten Bereichs platzieren
 		for( int i = 0; i < world.getPipe_count(); i++ ) {
 			world.newPipe(i, world.getWidth() + PIPE_DISTANCE * i);
 		}
@@ -179,6 +205,8 @@ public class Controller implements Runnable {
 	}
 
 	public void handlePipes() {
+		// Ist ein Rohr komplett durch,
+		// wieder an den Anfang setzen
 		for( int i = 0; i < world.getPipe_count(); i++ ) {
 			if( world.getPipe(i).getX() < Pipe.getWidth() * -1 ) {
 				world.newPipe(i);

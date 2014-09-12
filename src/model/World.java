@@ -56,8 +56,12 @@ public class World {
 		
 		this.ground_y = ground_y;
 		Pipe.setWH(pipe_width, pipe_height);
+		// Höhe der "Löcher" der Rohre, sowie erlaubten Bereich
+		// für die Löcher übergeben
+		// Der erlaubte Bereich wird so berechnet, dass
+		// die Rohr-Bilder nicht zu kurz sind
 		Pipe.setYProps(ground_y - pipe_gap_height - pipe_height,
-				pipe_height,
+				pipe_height + pipe_gap_height,
 				pipe_gap_height);
 		Pipe.setProps(pipe_step);
 		
