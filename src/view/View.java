@@ -74,12 +74,12 @@ public class View extends Frame implements KeyListener{
 				0, 0,
 				getWidth(), getHeight(),
 				null);
-//		gfx.drawRect(0, 0, getWidth(), getHeight());
-//		gfx.setColor(new Color(255, 255, 255));
-//		gfx.fillRect(0, 0, getWidth(), getHeight());
+		//		gfx.drawRect(0, 0, getWidth(), getHeight());
+		//		gfx.setColor(new Color(255, 255, 255));
+		//		gfx.fillRect(0, 0, getWidth(), getHeight());
 
 		for(int i = 0; i < world.getPipe_count(); i++ ) {
-			
+
 			Pipe pipe = world.getPipe(i);
 
 			gfx.drawImage(Pipe.getImageTop(),
@@ -92,38 +92,52 @@ public class View extends Frame implements KeyListener{
 					Pipe.getWidth(), Pipe.getHeight(),
 					null);
 
-//			gfx.setColor(new Color(255, 0, 0));
-//			gfx.fillRect(world.getPipe(i).getX(),
-//					world.getPipe(i).getY(),
-//					Pipe.getWidth(), Pipe.getHeight());
-//			gfx.fillRect(world.getPipe(i).getX(),
-//					world.getPipe(i).getY2(),
-//					Pipe.getWidth(), Pipe.getHeight());
+			//			gfx.setColor(new Color(255, 0, 0));
+			//			gfx.fillRect(world.getPipe(i).getX(),
+			//					world.getPipe(i).getY(),
+			//					Pipe.getWidth(), Pipe.getHeight());
+			//			gfx.fillRect(world.getPipe(i).getX(),
+			//					world.getPipe(i).getY2(),
+			//					Pipe.getWidth(), Pipe.getHeight());
 
 		}
 
-		
+
 		Bird bird = world.getBird();
 		gfx.drawImage(bird.getImage(),
 				bird.getX(), bird.getY(),
 				bird.getWidth(), bird.getHeight(),
 				null);
-//		gfx.setColor(new Color(0, 255, 0));
-//		gfx.fillRect(world.getBird().getX(),
-//				world.getBird().getY(),
-//				world.getBird().getWidth(),
-//				world.getBird().getHeight());
+		//		gfx.setColor(new Color(0, 255, 0));
+		//		gfx.fillRect(world.getBird().getX(),
+		//				world.getBird().getY(),
+		//				world.getBird().getWidth(),
+		//				world.getBird().getHeight());
 
 		gfx.drawImage(world.getImageGround(),
-		0, world.getGround_y(),
-		getWidth(), getHeight() - world.getGround_y(),
-		null);
-//		gfx.setColor(new Color(255, 255, 0));
-//		gfx.fillRect(0, world.getGround_y(), getWidth(), getHeight()-world.getGround_y());
-		
+				0, world.getGround_y(),
+				getWidth(), getHeight() - world.getGround_y(),
+				null);
+		//		gfx.setColor(new Color(255, 255, 0));
+		//		gfx.fillRect(0, world.getGround_y(), getWidth(), getHeight()-world.getGround_y());
+
 		gfx.setFont(new Font("Courier", 0, 30));
 		gfx.setColor(new Color(255, 255, 255));
 		gfx.drawString(String.valueOf(world.getScore()), 10, world.getHeight() - 30);
+
+		if( world.isGameover() ) {
+			gfx.drawImage(world.getImageGameOver(),
+					world.getWidth()/2-world.getImageGameOver().getWidth(null)/2,
+					world.getHeight()/2-world.getImageGameOver().getHeight(null)/2,
+					null);
+		}
+		if( world.isRestartable() ) {
+			gfx.setColor(new Color(0, 0, 0));
+			gfx.setFont(new Font("Courier", 0, 20));
+			gfx.drawString("Press B to restart",
+					world.getWidth()/2-world.getImageGameOver().getWidth(null)/2,
+					(int)(world.getHeight()/2+world.getImageGameOver().getHeight(null)*1.5));
+		}
 
 		buffer.show();
 

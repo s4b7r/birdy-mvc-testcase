@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.xml.stream.events.StartDocument;
 
 import view.View;
 import model.*;
@@ -49,17 +50,7 @@ public class Controller implements Runnable {
 
 	public Controller() {
 
-		initWorld();
-
-		initImages();
-
-		initBird();
-
-		initPipes();
-
-		initView();
-
-		new Thread(this).start();
+		init();
 
 	}
 
@@ -80,6 +71,7 @@ public class Controller implements Runnable {
 				world.getBird().move();
 			} else {
 				stop = true;
+				world.setRestartable(true);
 			}
 			
 			handleScore();
@@ -108,7 +100,30 @@ public class Controller implements Runnable {
 		if( e.getKeyCode() == 32 ) {
 			jump_pressed = true;
 		}
+		if( stop && e.getKeyCode() == 66 ) {
+			init();
+		}
 
+	}
+	
+	public void init() {
+		
+		jump_pressed = false;
+		stop = false;
+		collisionPipe = false;
+		collisionGround = false;
+		
+		initWorld();
+
+		initImages();
+
+		initBird();
+
+		initPipes();
+
+		initView();
+
+		new Thread(this).start();
 	}
 
 	public void initWorld() {
@@ -123,6 +138,7 @@ public class Controller implements Runnable {
 		try {
 			world.setImageBackground(ImageIO.read(new File("res/FlappyBird_Hintergrund.png")));
 			world.setImageGround(ImageIO.read(new File("res/FlappyBird_Boden.png")));
+			world.setImageGameOver(ImageIO.read(new File("res/FlappyBird_Gameover.png")));
 			world.getBird().setImage(ImageIO.read(new File("res/FlappyBird_Flappy.png")));
 			Pipe.setImageBot(ImageIO.read(new File("res/FlappyBird_Rohr2_unten.png")));
 			Pipe.setImageTop(ImageIO.read(new File("res/FlappyBird_Rohr1_oben.png")));
@@ -184,6 +200,7 @@ public class Controller implements Runnable {
 						> world.getPipe(i).getY() + Pipe.getHeight() + Pipe.getGap_height() ) {
 
 					collisionPipe = true;
+					world.setGameover(true);
 				}
 			}
 		}
@@ -194,6 +211,7 @@ public class Controller implements Runnable {
 
 		if( world.getBird().getY() + world.getBird().getHeight() > world.getGround_y() ) {
 			collisionGround = true;
+			world.setGameover(true);
 		}
 
 	}

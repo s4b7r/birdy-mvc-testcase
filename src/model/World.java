@@ -14,8 +14,11 @@ public class World {
 	
 	private Image imageBackground;
 	private Image imageGround;
+	private Image imageGameOver;
 	
 	private int score;
+	private boolean gameover;
+	private boolean restartable;
 
 	public World( ) {
 
@@ -30,6 +33,8 @@ public class World {
 	public void init() {
 		
 		score = 0;
+		gameover = false;
+		restartable = false;
 		bird = new Bird();
 		pipe = new Pipe[pipe_count];
 		for( int i = 0; i < pipe_count; i++ ) {
@@ -121,6 +126,30 @@ public class World {
 
 	public int getHeight() {
 		return height;
+	}
+
+	public Image getImageGameOver() {
+		return imageGameOver;
+	}
+
+	public void setImageGameOver(Image imageGameOver) {
+		this.imageGameOver = imageGameOver;
+	}
+
+	public boolean isGameover() {
+		return gameover;
+	}
+
+	public void setGameover(boolean gameover) {
+		this.gameover = gameover;
+	}
+
+	public boolean isRestartable() {
+		return restartable;
+	}
+
+	public void setRestartable(boolean restartable) {
+		this.restartable = restartable;
 	}
 
 }
