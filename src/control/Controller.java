@@ -13,7 +13,7 @@ public class Controller implements Runnable {
 	// Weltbreite und -höhe
 	// gleichzeitig Fensterbreite und -höhe
 	private final int WORLD_HEIGHT = 600;
-	private final int WORLD_WIDTH = 400;
+	private final int WORLD_WIDTH = 800;
 
 	// Höhe des Bodens
 	private final int GROUND_Y = 500;
@@ -21,10 +21,10 @@ public class Controller implements Runnable {
 	private final int BIRD_START_X = 20;
 	private final int BIRD_START_Y = 100;
 
-	private final int PIPE_COUNT = 2;
-
 	private final int PIPE_GAP_HEIGHT = 125;
-	private final int PIPE_DISTANCE = WORLD_WIDTH / PIPE_COUNT;
+	private final int PIPE_DISTANCE = 200;
+	
+	private final int PIPE_COUNT = WORLD_WIDTH / PIPE_DISTANCE;
 
 	// Schrittweite pro Zeitschritt für...
 	// ... horizontale Bewegung der Röhren
