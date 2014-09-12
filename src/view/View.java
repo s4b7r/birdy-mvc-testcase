@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -9,7 +8,9 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferStrategy;
 
+import model.Bird;
 import model.Pipe;
+import model.World;
 import control.Controller;
 
 
@@ -61,58 +62,62 @@ public class View extends Frame implements KeyListener{
 		buffer = getBufferStrategy();
 	}
 
-	public void drawEverything() {
+	public void drawWorld( World world ) {
 
 		Graphics gfx = buffer.getDrawGraphics();
 
 		gfx.clearRect(0, 0, getWidth(), getHeight());
 
-		gfx.drawImage(controller.getWorld().getImageBackground(),
+		gfx.drawImage(world.getImageBackground(),
 				0, 0,
 				getWidth(), getHeight(),
 				null);
-		//gfx.drawRect(0, 0, getWidth(), getHeight());
+//		gfx.drawRect(0, 0, getWidth(), getHeight());
 //		gfx.setColor(new Color(255, 255, 255));
 //		gfx.fillRect(0, 0, getWidth(), getHeight());
 
-		for(int i = 0; i < controller.getWorld().getPipe_count(); i++ ) {
+		for(int i = 0; i < world.getPipe_count(); i++ ) {
+			
+			Pipe pipe = world.getPipe(i);
 
 			gfx.drawImage(Pipe.getImageTop(),
-					controller.getWorld().getPipe(i).getX(), controller.getWorld().getPipe(i).getY(),
+					pipe.getX(), pipe.getY(),
 					Pipe.getWidth(), Pipe.getHeight(),
 					null);
 
 			gfx.drawImage(Pipe.getImageBot(),
-					controller.getWorld().getPipe(i).getX(), controller.getWorld().getPipe(i).getY2(),
+					pipe.getX(), pipe.getY2(),
 					Pipe.getWidth(), Pipe.getHeight(),
 					null);
 
 //			gfx.setColor(new Color(255, 0, 0));
-//			gfx.fillRect(controller.getWorld().getPipe(i).getX(),
-//					controller.getWorld().getPipe(i).getY(),
+//			gfx.fillRect(world.getPipe(i).getX(),
+//					world.getPipe(i).getY(),
 //					Pipe.getWidth(), Pipe.getHeight());
-//			gfx.fillRect(controller.getWorld().getPipe(i).getX(),
-//					controller.getWorld().getPipe(i).getY2(),
+//			gfx.fillRect(world.getPipe(i).getX(),
+//					world.getPipe(i).getY2(),
 //					Pipe.getWidth(), Pipe.getHeight());
 
 		}
 
-		gfx.drawImage(controller.getWorld().getBird().getImage(),
-				controller.getWorld().getBird().getX(), controller.getWorld().getBird().getY(),
-				controller.getWorld().getBird().getWidth(), controller.getWorld().getBird().getHeight(),
+		
+		Bird bird = world.getBird();
+		gfx.drawImage(bird.getImage(),
+				bird.getX(), bird.getY(),
+				bird.getWidth(), bird.getHeight(),
 				null);
 //		gfx.setColor(new Color(0, 255, 0));
-//		gfx.fillRect(controller.getWorld().getBird().getX(),
-//				controller.getWorld().getBird().getY(),
-//				controller.getWorld().getBird().getWidth(),
-//				controller.getWorld().getBird().getHeight());
+//		gfx.fillRect(world.getBird().getX(),
+//				world.getBird().getY(),
+//				world.getBird().getWidth(),
+//				world.getBird().getHeight());
 
-		gfx.drawImage(controller.getWorld().getImageGround(),
-		0, controller.getWorld().getGround_y(),
-		getWidth(), getHeight() - controller.getWorld().getGround_y(),
+		gfx.drawImage(world.getImageGround(),
+		0, world.getGround_y(),
+		getWidth(), getHeight() - world.getGround_y(),
 		null);
 //		gfx.setColor(new Color(255, 255, 0));
-//		gfx.fillRect(0, controller.getWorld().getGround_y(), getWidth(), getHeight()-controller.getWorld().getGround_y());
+//		gfx.fillRect(0, world.getGround_y(), getWidth(), getHeight()-world.getGround_y());
 
 		buffer.show();
 

@@ -82,7 +82,7 @@ public class Controller implements Runnable {
 				stop = true;
 			}
 
-			view.drawEverything();
+			view.drawWorld(world);
 
 			handleCollisionPipe();
 			handleCollisionGround();
