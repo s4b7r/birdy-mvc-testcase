@@ -16,7 +16,7 @@ public class Controller implements Runnable {
 
 	private final int GROUND_Y = 500;
 
-	private final int BIRD_START_X = 5;
+	private final int BIRD_START_X = 20;
 	private final int BIRD_START_Y = 100;
 
 	private final int PIPE_COUNT = 2;
@@ -44,6 +44,7 @@ public class Controller implements Runnable {
 	private boolean stop = false;
 
 	private boolean collisionPipe = false;
+	private boolean collisionGround = false;
 
 
 	public Controller() {
@@ -67,7 +68,7 @@ public class Controller implements Runnable {
 
 		while( !stop ) {
 
-			handleBirdFly();
+			handleBird();
 
 			if( !collisionPipe ) {
 				world.movePipes();
@@ -75,9 +76,16 @@ public class Controller implements Runnable {
 
 			handlePipes();
 
-			world.getBird().move();
+			if( !collisionGround ) {
+				world.getBird().move();
+			} else {
+				stop = true;
+			}
 
 			view.drawEverything();
+
+			handleCollisionPipe();
+			handleCollisionGround();
 
 			try {
 				Thread.sleep(TIME_STEP);
@@ -140,13 +148,13 @@ public class Controller implements Runnable {
 		view.init();
 	}
 
-	public void handleBirdFly() {
-		if( jump_pressed ) {
+	public void handleBird() {
+		if( jump_pressed && !collisionPipe ) {
 			jump_pressed = false;
 			world.getBird().setBird_step(BIRD_STEP);
 			world.getBird().resetJumpHeight();
 		}
-		if( world.getBird().isJumpMax() || world.getBird().getY() <= 0 ) {
+		if( world.getBird().isJumpMax() || world.getBird().getY() <= 0 || collisionPipe ) {
 			world.getBird().setBird_step(BIRD_STEP * -1);
 			world.getBird().resetJumpHeight();
 		}
@@ -163,16 +171,27 @@ public class Controller implements Runnable {
 	public void handleCollisionPipe() {
 
 		for( int i = 0; i < world.getPipe_count(); i++ ) {
+
 			if( world.getBird().getX() + world.getBird().getWidth()
 					> world.getPipe(i).getX() &&
 					world.getBird().getX()
 					< world.getPipe(i).getX() + Pipe.getWidth() ) {
+
 				if( world.getBird().getY() < world.getPipe(i).getY() + Pipe.getHeight() ||
 						world.getBird().getY() + world.getBird().getHeight()
 						> world.getPipe(i).getY() + Pipe.getHeight() + Pipe.getGap_height() ) {
 
+					collisionPipe = true;
 				}
 			}
+		}
+
+	}
+
+	public void handleCollisionGround() {
+
+		if( world.getBird().getY() + world.getBird().getHeight() > world.getGround_y() ) {
+			collisionGround = true;
 		}
 
 	}
