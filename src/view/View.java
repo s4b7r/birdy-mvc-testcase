@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -118,6 +120,10 @@ public class View extends Frame implements KeyListener{
 		null);
 //		gfx.setColor(new Color(255, 255, 0));
 //		gfx.fillRect(0, world.getGround_y(), getWidth(), getHeight()-world.getGround_y());
+		
+		gfx.setFont(new Font("Courier", 0, 30));
+		gfx.setColor(new Color(255, 255, 255));
+		gfx.drawString(String.valueOf(world.getScore()), 10, world.getHeight() - 30);
 
 		buffer.show();
 

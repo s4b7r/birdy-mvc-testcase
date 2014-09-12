@@ -14,6 +14,8 @@ public class World {
 	
 	private Image imageBackground;
 	private Image imageGround;
+	
+	private int score;
 
 	public World( ) {
 
@@ -27,6 +29,7 @@ public class World {
 	
 	public void init() {
 		
+		score = 0;
 		bird = new Bird();
 		pipe = new Pipe[pipe_count];
 		for( int i = 0; i < pipe_count; i++ ) {
@@ -106,6 +109,18 @@ public class World {
 
 	public void setImageGround(Image imageGround) {
 		this.imageGround = imageGround;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public int getHeight() {
+		return height;
 	}
 
 }

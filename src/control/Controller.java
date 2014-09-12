@@ -81,6 +81,8 @@ public class Controller implements Runnable {
 			} else {
 				stop = true;
 			}
+			
+			handleScore();
 
 			view.drawWorld(world);
 
@@ -194,6 +196,19 @@ public class Controller implements Runnable {
 			collisionGround = true;
 		}
 
+	}
+	
+	public void handleScore() {
+		
+		for( int i = 0; i < world.getPipe_count(); i++ ) {
+			if( world.getBird().getX() > world.getPipe(i).getX() + Pipe.getWidth() &&
+					!world.getPipe(i).isScored() ) {
+				world.getPipe(i).setScored(true);
+				world.setScore(world.getScore()+1);
+				System.out.println(world.getScore());
+			}
+		}
+		
 	}
 
 }

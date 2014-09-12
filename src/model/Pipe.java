@@ -12,6 +12,8 @@ public class Pipe {
 	
 	private int x, y;
 	
+	private boolean scored;
+	
 	private static Image imageTop;
 	private static Image imageBot;
 
@@ -45,6 +47,7 @@ public class Pipe {
 		
 		this.x = x;
 		y = (int)(Math.random() * (y_max - y_min) + y_min);
+		scored = false;
 		
 	}
 	
@@ -92,6 +95,14 @@ public class Pipe {
 
 	public static int getGap_height() {
 		return gap_height;
+	}
+
+	public boolean isScored() {
+		return scored;
+	}
+
+	public void setScored(boolean scored) {
+		this.scored = scored;
 	}
 	
 }
