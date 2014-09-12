@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.xml.stream.events.StartDocument;
-
 import view.View;
 import model.*;
 
