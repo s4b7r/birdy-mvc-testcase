@@ -7,7 +7,7 @@ Old one-day project, playing with MVC: Recreating Flappy Bird
 This repository is an automatic port of an old Mercurial repo and has been cleaned of personal data automatically.
 For this reason some parts could be broken or will at least look ugly.
 
-Untidy commits as well ...
+Untidy commits as well ... What are those commit messages?!!
 
 The code requires some assets (pictures for the game), which are not included to keep legal / copyright stuff away.
 
